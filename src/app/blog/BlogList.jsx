@@ -60,12 +60,12 @@ export default function BlogList() {
       <div className="text-center mb-14">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Latest Property Insights &{" "}
-          <span className="text-[#143D60]">Faridabad Updates</span>
+          <span className="text-[#143D60]">Gurgaon Updates</span>
         </h2>
 
         <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
           Stay updated with property market trends, legal guidance, and expert advice
-          to find the best flats for sale in Faridabad.
+          to find the best flats for sale in Gurgaon.
         </p>
 
         <div className="w-20 h-1 bg-[#143D60] mx-auto mt-6 rounded-full"></div>
