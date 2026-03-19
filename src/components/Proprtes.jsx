@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,15 +8,26 @@ import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
-
+import { usePathname } from "next/navigation";
 export default function Properties() {
-  const { properties, loading, error } = useProperty();
+  const { properties, loading, error, refetch } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const propertySectionRef = useRef(null);
   const itemsPerPage = 150;
+const pathname = usePathname();
+
+ useEffect(() => {
+  refetch();
+ }, [pathname]);
+
+  useEffect(() => {
+  if (properties) {
+    setCurrentPage(1);
+  }
+}, [properties]);
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -210,6 +221,7 @@ export default function Properties() {
 
           <div className="mt-12 sm:mt-16">
             <Pagination
+            key={totalItems + "-" + currentPage}
               totalItems={totalItems}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}

@@ -21,11 +21,11 @@ export const PropertyProvider = ({ children }) => {
 
   const getPropertiesByDomain = async () => {
 
-    if (lastFetchedDomain.current === domain && properties.length > 0) {
-      return;
-    }
+    // if (lastFetchedDomain.current === domain && properties.length > 0) {
+    //   return;
+    // }
 
-    lastFetchedDomain.current = domain;
+    // lastFetchedDomain.current = domain;
 
     try {
 
