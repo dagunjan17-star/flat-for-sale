@@ -11,7 +11,7 @@ export default function BHKFilterButtons() {
   const activeBhk = params?.type;
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-2 sm:gap-4 justify-center sm:justify-start">
 
       {bhkOptions.map((bhk) => {
 
@@ -21,9 +21,11 @@ export default function BHKFilterButtons() {
           <Link
             key={bhk}
             href={`/type/${bhk}`}
-            className={`px-6 py-3 text-sm md:text-base font-medium
-            rounded-tl-xl rounded-br-xl
+            className={`px-3 sm:px-6 py-2 sm:py-3 
+            text-xs sm:text-sm md:text-base font-medium
+            rounded-tl-lg sm:rounded-tl-xl rounded-br-lg sm:rounded-br-xl
             border border-[#143D60] transition-all duration-200
+            text-center break-words
 
             ${
               isActive

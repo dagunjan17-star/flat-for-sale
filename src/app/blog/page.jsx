@@ -1,38 +1,31 @@
-import React from 'react'
+import React from "react";
+import BlogList from "./BlogList";
 
-import { headers } from "next/headers";
-import BlogList from './BlogList';
 export async function generateMetadata() {
-  const h = await headers();
-  const domain = h.get("host") || "localhost";
-
-  // www remove
-  const cleanDomain = domain.replace(/^www\./, "");
-
   return {
-    title: "Property & Real Estate Blogs | Trusted Property Dealer",
+    title: "Flats for Sale in Gurgaon Blogs | Price Trends, Buying Guide & Investment Tips",
     description:
-      "Read latest property and real estate blogs. Get house buying tips, flat rent guides, plot investment ideas and property news.",
+      "Explore blogs on flats for sale in Gurgaon. Get expert insights on pricing, best locations, investment opportunities and home buying guides in Gurgaon.",
     keywords: [
-      "property blogs",
-      "real estate blogs",
-      "house buying tips",
-      "flat rent guide",
-      "plot investment",
-      "property news"
+      "flats for sale in Gurgaon",
+      "buy flat Gurgaon",
+      "Gurgaon property investment",
+      "flat price trends Gurgaon",
+      "best areas in Gurgaon for flats",
+      "Gurgaon real estate blogs"
     ],
     alternates: {
-      canonical: `https://${cleanDomain}/blog`
+      canonical: "https://flatsforsaleingurgaon.com/blog", // 🔥 final domain set
     },
-  }
+  };
 }
 
-
-
-const page = () => {
+const Page = () => {
   return (
-<div className="min-h-screen bg-gradient-to-b from-white to-[#e8f1f8]"> <BlogList/>   </div>
-  )
-}
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#e8f1f8]">
+      <BlogList />
+    </div>
+  );
+};
 
-export default page
+export default Page;
