@@ -114,9 +114,9 @@ const pathname = usePathname();
           {currentProperties.map((property) => (
             <div
               key={property._id}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl md:hover:-translate-y-1 transition duration-300 overflow-hidden"
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl md:hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
             >
-              <div className="flex flex-col md:flex-row">
+              <div className="flex flex-col md:flex-row h-full">
                 
                 {/* IMAGE */}
 
@@ -148,9 +148,29 @@ const pathname = usePathname();
                     {property.title}
                   </h2>
 
-                  <p className="text-sm text-gray-500 mt-1">
-                    {property.locality}
-                  </p>
+                 <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-4 h-4 text-gray-400"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243A8 8 0 1117.657 16.657z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+  </svg>
+
+  {property.locality}
+</p>
 
                   {/* INFO BAR */}
 
@@ -178,10 +198,10 @@ const pathname = usePathname();
 
                   </div>
 
-                  <p className="text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
+                  {/* <p className="text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
                     {property.description ||
                       "Luxury flat available in Gurgaon with modern amenities and excellent connectivity."}
-                  </p>
+                  </p> */}
 
                   <div className="flex-1"></div>
 
