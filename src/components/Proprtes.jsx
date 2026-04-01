@@ -216,7 +216,7 @@ const pathname = usePathname();
                           setSelectedProperty(property.title);
                           setOpen(true);
                         }}
-                        className="bg-[#143D60] text-white px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#0f2c46] transition w-full sm:w-auto text-center font-medium shadow-sm"
+                        className="bg-[#143D60] text-white px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#0f2c46] transition w-full sm:w-auto text-center font-medium shadow-sm cursor-pointer"
                       >
                         Price on Call
                       </button>
