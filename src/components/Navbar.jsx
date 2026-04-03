@@ -32,7 +32,7 @@ const Navbar = () => {
               }}
               className="text-xl sm:text-2xl font-bold tracking-wide text-[#143D60] hover:text-[#0f2c46] transition"
             >
-              Flats for Sale Gurgaon
+             DA
             </Link>
 
             {/* ================= DESKTOP LINKS ================= */}
