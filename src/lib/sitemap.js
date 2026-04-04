@@ -4,7 +4,7 @@ import { locations } from "@/data/locations";
 // 🔥 SLUG FUNCTION
 const createSlug = (location) => {
   return location
-    .replace(", Faridabad", "")
+    .replace(", Gurgaon", "")
     .toLowerCase()
     .replace(/,/g, "")
     .replace(/\s+/g, "-")
