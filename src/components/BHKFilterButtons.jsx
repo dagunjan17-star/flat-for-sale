@@ -4,23 +4,33 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function BHKFilterButtons() {
-
-  const bhkOptions = ["1", "2", "3", "4"];
+  const bhkOptions = [1, 2, 3, 4];
   const params = useParams();
 
-  const activeBhk = params?.type;
+  const city = "gurgaon";
+
+  // 🔥 URL se slug aa raha hoga
+  const activeSlug = params?.slug;
+
+  const formatCity = (city) =>
+    city.toLowerCase().replace(/\s+/g, "-");
+
+  const createSlug = (bhk) => {
+    return `${bhk}-bhk-flats-for-sale-in-${formatCity(city)}`;
+  };
 
   return (
     <div className="flex flex-wrap gap-2 sm:gap-4 justify-center sm:justify-start">
-
       {bhkOptions.map((bhk) => {
+        const slug = createSlug(bhk);
 
-        const isActive = activeBhk === bhk;
+        // 🔥 Active match
+        const isActive = activeSlug === slug;
 
         return (
           <Link
             key={bhk}
-            href={`/type/${bhk}`}
+            href={`/listing/${slug}`}
             className={`px-3 sm:px-6 py-2 sm:py-3 
             text-xs sm:text-sm md:text-base font-medium
             rounded-tl-lg sm:rounded-tl-xl rounded-br-lg sm:rounded-br-xl
@@ -38,7 +48,6 @@ export default function BHKFilterButtons() {
           </Link>
         );
       })}
-
     </div>
   );
 }

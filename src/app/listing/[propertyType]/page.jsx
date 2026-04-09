@@ -30,20 +30,13 @@ export default function PropertyTypePage() {
 
   /* ================= FETCH BY TYPE ================= */
 
-  useEffect(() => {
-    if (propertyType) {
-      fetchPropertiesByType(`${propertyType} BHK`, 1);
-    }
-  }, [propertyType]);
+ const bhk = propertyType?.split("-")[0];
 
-  useEffect(() => {
-    if (!loading3 && properties.length > 0) {
-      propertySectionRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [properties]);
+useEffect(() => {
+  if (bhk) {
+    fetchPropertiesByType(`${bhk} BHK`, 1);
+  }
+}, [bhk]);
 
   /* ================= LOADING ================= */
 
@@ -57,7 +50,7 @@ export default function PropertyTypePage() {
         </div>
 
         <p className="mt-5 text-sm font-medium text-gray-600 tracking-wide">
-          Loading {propertyType} BHK Listings...
+          Loading {bhk} BHK Listings...
         </p>
 
       </div>
@@ -77,7 +70,7 @@ export default function PropertyTypePage() {
       <div className="text-center py-20">
 
         <h2 className="text-2xl font-semibold text-[#143D60]">
-          No {propertyType} BHK Flats Available in Gurgaon
+          No {bhk} BHK Flats Available in Gurgaon
         </h2>
 
         <p className="text-gray-500 mt-2">
@@ -101,11 +94,11 @@ export default function PropertyTypePage() {
       <div className="max-w-7xl mx-auto mb-12">
 
         <h1 className="text-3xl md:text-4xl font-bold text-[#143D60]">
-          {propertyType} BHK Flats for Sale in Gurgaon
+          {bhk} BHK Flats for Sale in Gurgaon
         </h1>
 
         <p className="mt-4 text-gray-500 max-w-2xl">
-          Discover premium {propertyType} BHK flats available in prime Gurgaon
+          Discover premium {bhk} BHK flats available in prime Gurgaon
           sectors including Golf Course Road, Dwarka Expressway, Sohna Road
           and New Gurgaon.
         </p>
