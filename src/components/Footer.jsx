@@ -3,38 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const locations = [
-  'Ashok Vihar',   'Ashok Vihar Phase 2', 'DLF Phase 1',
-  'DLF Phase 2',   'DLF Phase 3',         'DLF Phase 4',
-  'DLF Phase 5',   'Golf Course Road',    'MG Road',
-  'Manesar',       'New Palam Vihar',     'Palam Vihar',
-  'Rajendra Park', 'Sector 1',            'Sector 102',
-  'Sector 103',    'Sector 105',          'Sector 106',
-  'Sector 107',    'Sector 108',          'Sector 109',
-  'Sector 10A',    'Sector 110',          'Sector 111',
-  'Sector 112',    'Sector 113',          'Sector 14',
-  'Sector 2',      'Sector 23',           'Sector 25',
-  'Sector 26',     'Sector 28',           'Sector 3',
-  'Sector 30',     'Sector 31',           'Sector 33',
-  'Sector 37D',    'Sector 39',           'Sector 41',
-  'Sector 42',     'Sector 43',           'Sector 45',
-  'Sector 46',     'Sector 47',           'Sector 48',
-  'Sector 49',     'Sector 50',           'Sector 51',
-  'Sector 53',     'Sector 54',           'Sector 55',
-  'Sector 56',     'Sector 57',           'Sector 58',
-  'Sector 59',     'Sector 6',            'Sector 60',
-  'Sector 61',     'Sector 62',           'Sector 63',
-  'Sector 63A',    'Sector 65',           'Sector 66',
-  'Sector 67',     'Sector 67A',          'Sector 68',
-  'Sector 69',     'Sector 7',            'Sector 77',
-  'Sector 78',     'Sector 80',           'Sector 81',
-  'Sector 82',     'Sector 83',           'Sector 84',
-  'Sector 85',     'Sector 86',           'Sector 88',
-  'Sector 89',     'Sector 90',           'Sector 91',
-  'Sector 92',     'Sector 93',           'Sector 95',
-  'Sector 99',     'Sohna Road',          'South City 1',
-  'South City 2',  'Sushant Lok Phase 2', 'Sushant Lok Phase 3'
-];
+import { locations } from "../data/locations";
 
 // ✅ Clean Slug
 const createSlug = (location) => {
@@ -59,7 +28,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto overflow-visible">
 
         {/* BRAND */}
-        {/* <div className="mb-10">
+        <div className="mb-10">
           <h2 className="text-2xl font-bold text-white">
             Flats for Sale in{" "}
             <span className="text-[#143D60] bg-white px-2 py-1 rounded">
@@ -70,7 +39,7 @@ export default function Footer() {
           <p className="text-gray-300 mt-4 max-w-2xl leading-relaxed">
             Discover affordable and premium flats across prime sectors of Faridabad with verified listings and strong ROI potential.
           </p>
-        </div> */}
+        </div>
 
         {/* LOCATIONS */}
         <div className="mb-10 overflow-visible">
@@ -84,10 +53,10 @@ export default function Footer() {
               <div key={index} className="relative group overflow-visible">
 
                 <Link
-                  href={`/${createSlug(loc)}`}
+                  href={`/flat-for-sale-in-${createSlug(loc)}-gurgaon`}
                   className="block truncate text-gray-300 hover:text-white transition duration-200"
                 >
-                  Flat For Sale {loc}
+                  Flat For Sale in {loc}, Gurgaon
                 </Link>
 
                 <div
@@ -104,7 +73,7 @@ export default function Footer() {
                   pointer-events-none
                 "
                 >
-                  Flat For Sale {loc}
+                  Flat For Sale in {loc}, Gurgaon
                 </div>
 
               </div>
@@ -136,7 +105,42 @@ export default function Footer() {
 
           </div>
         </div>
+{/* 🔥 Bottom Navigation Buttons - CENTER */}
+<div className="border-t border-[#143D60] pt-6 mt-10 mb-6">
+  <div className="flex justify-center items-center">
+    
+    <div className="flex flex-wrap gap-6 justify-center text-sm">
+      <Link
+        href="/about"
+        className="text-gray-300 hover:text-white transition"
+      >
+        About
+      </Link>
 
+      <Link
+        href="/blog"
+        className="text-gray-300 hover:text-white transition"
+      >
+        Blog
+      </Link>
+
+      <Link
+        href="/contact"
+        className="text-gray-300 hover:text-white transition"
+      >
+        Contact
+      </Link>
+
+      <Link
+        href="/how-it-works"
+        className="text-gray-300 hover:text-white transition"
+      >
+        How It's Work
+      </Link>
+    </div>
+
+  </div>
+</div>
         {/* BOTTOM */}
         <div className="border-t border-[#143D60] pt-6 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-gray-400 text-center md:text-left">

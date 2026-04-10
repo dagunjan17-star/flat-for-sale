@@ -26,24 +26,27 @@ export default function FilterProperties({ area }) {
   }, [formattedArea, setLocality]);
 
   const finalData = useMemo(() => {
-    if (safeProperties.length === 0) {
-      return safeData;
-    }
 
-    const filteredIds = new Set(safeData.map((p) => p._id));
+  // 👉 Agar locality ka data hi nahi hai → sirf random (150)
+  if (safeData.length === 0) {
+    return safeProperties.slice(0, 150);
+  }
 
-    const remaining = safeProperties.filter(
-      (p) => !filteredIds.has(p._id)
-    );
+  // 👉 Agar locality ka data hai → mix
+  const filteredIds = new Set(safeData.map((p) => p._id));
 
-    const needed = 150 - safeData.length;
+  const remaining = safeProperties.filter(
+    (p) => !filteredIds.has(p._id)
+  );
 
-    return [
-      ...safeData,
-      ...remaining.slice(0, needed > 0 ? needed : 0)
-    ].slice(0, 150);
+  const needed = 150 - safeData.length;
 
-  }, [safeData, safeProperties]);
+  return [
+    ...safeData,
+    ...remaining.slice(0, needed > 0 ? needed : 0)
+  ].slice(0, 150);
+
+}, [safeData, safeProperties]);
 
   if (loading2) {
     return (
@@ -69,21 +72,15 @@ export default function FilterProperties({ area }) {
     );
   }
 
-  if (!safeData || safeData.length === 0) {
-    return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gradient-to-b from-white to-[#e8f1f8]">
-        <h2 className="text-2xl font-semibold text-gray-800">
-          No Flats Available for Sale in {formattedArea}
-        </h2>
-        <p className="text-gray-500 mt-2">
-          New listings will be updated soon.
-        </p>
-      </div>
-    );
-  }
+ 
 
   return (
     <section className="bg-[#F4F8FB] py-4">
+       {safeData.length === 0 && (
+  <p className="text-center text-gray-500 mb-4">
+    No properties found in {formattedArea}, showing recommended listings
+  </p>
+)}
       <div className="max-w-7xl mx-auto">
 
         <div className="grid grid-cols-1 gap-6">
