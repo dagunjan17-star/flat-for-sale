@@ -8,8 +8,6 @@ export default function BHKFilterButtons() {
   const params = useParams();
 
   const city = "gurgaon";
-
-  // 🔥 URL se slug aa raha hoga
   const activeSlug = params?.slug;
 
   const formatCity = (city) =>
