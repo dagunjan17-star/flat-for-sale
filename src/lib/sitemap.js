@@ -52,7 +52,7 @@ export async function generateSitemap() {
 
     return `
       <url>
-        <loc>${baseUrl}/flat-for-sale-in-${slug}</loc>
+        <loc>${baseUrl}/flat-for-sale-in-${slug}-gurgaon</loc>
       </url>
     `;
   });
