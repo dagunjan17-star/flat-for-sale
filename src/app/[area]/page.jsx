@@ -20,7 +20,7 @@ const formattedArea = area
         {/* 🔥 DYNAMIC HEADING */}
         <div className=" mb-14">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-           Premium Flats For Sale in{" "}
+           Flats For Sale in{" "}
             <span className="text-gray-800">
               {formattedArea || "Faridabad"}
             </span>
