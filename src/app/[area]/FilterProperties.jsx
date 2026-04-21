@@ -211,8 +211,20 @@ export default function FilterProperties({ area }) {
                     </button>
 
                     <Link
-                      href={`/properties/${property.slug}`}
-                      className="border border-[#143D60] text-[#143D60]
+                   
+  href={`/properties/${property.slug}`}
+  onClick={() => {
+    localStorage.setItem("lastLocation", property.city);
+
+    // 🔥 ONLY save if user is on listing page
+    if (window.location.pathname.startsWith("/listing")) {
+      localStorage.setItem("lastListing", window.location.pathname);
+    } else {
+      // 🔥 clear wrong data
+      localStorage.removeItem("lastListing");
+    }
+  }}
+         className="border border-[#143D60] text-[#143D60]
                       px-4 py-2 text-sm
                       rounded-tl-xl rounded-br-xl
                       hover:bg-[#143D60] hover:text-white transition"
