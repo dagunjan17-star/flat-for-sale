@@ -224,6 +224,17 @@ const pathname = usePathname();
 
                       <Link
                         href={`/properties/${property.slug}`}
+  onClick={() => {
+    localStorage.setItem("lastLocation", property.city);
+
+    // 🔥 ONLY set if coming from listing page
+    if (window.location.pathname.includes("flat") || window.location.pathname.includes("listing")) {
+      localStorage.setItem("lastListing", window.location.pathname);
+    } else {
+      // 🔥 clear if coming from home or anywhere else
+      localStorage.removeItem("lastListing");
+    }
+  }}
                         className="border border-[#143D60] text-[#143D60] px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#143D60] hover:text-white transition w-full sm:w-auto text-center font-medium"
                       >
                         View Details

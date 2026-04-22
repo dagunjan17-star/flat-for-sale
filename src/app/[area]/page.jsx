@@ -1,6 +1,6 @@
 import FilterProperties from "./FilterProperties";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
-
+import Breadcrumb from "@/components/Breadcrumb";
 export default async function Page({ params }) {
   const resolvedParams = await params;
    const rawArea = resolvedParams?.area;
@@ -16,10 +16,12 @@ const formattedArea = area
   return (
     <div className="bg-[#F4F8FB] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-10">
-
+<div className="mb-6">
+   <Breadcrumb />
+  </div>
         {/* 🔥 DYNAMIC HEADING */}
         <div className=" mb-14">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
            Flats For Sale in{" "}
             <span className="text-gray-800">
               {formattedArea || "Faridabad"}
