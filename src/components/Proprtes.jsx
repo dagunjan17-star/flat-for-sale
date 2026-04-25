@@ -65,9 +65,9 @@ const pathname = usePathname();
   if (!properties || properties.length === 0) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+        <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">
           No Flats Available for Sale in Gurgaon
-        </h2>
+        </h3>
         <p className="text-gray-500 mt-2 text-sm sm:text-base">
           New Gurgaon property listings will be updated soon.
         </p>
@@ -90,9 +90,9 @@ const pathname = usePathname();
       {/* HEADING */}
 
       <div className="max-w-7xl mx-auto mb-10 sm:mb-12">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
           Flats for Sale in Gurgaon
-        </h1>
+        </h2>
 
         <p className="mt-3 sm:mt-4 text-gray-500 max-w-2xl text-sm sm:text-base">
           Discover premium flats for sale in Gurgaon across prime sectors like
@@ -145,9 +145,9 @@ const pathname = usePathname();
 
                 <div className="p-4 sm:p-5 flex-1 flex flex-col">
                   
-                  <h2 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">
                     {property.title}
-                  </h2>
+                  </h3>
 
                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
   <svg
