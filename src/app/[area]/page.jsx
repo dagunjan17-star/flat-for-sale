@@ -1,6 +1,28 @@
 import FilterProperties from "./FilterProperties";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Breadcrumb from "@/components/Breadcrumb";
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const rawArea = resolvedParams?.area;
+
+  const area = rawArea?.replace("flat-for-sale-in-", "");
+
+  const formattedArea = area
+    ?.replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  const locationName = formattedArea || "Faridabad";
+
+  return {
+    title: `Flats for Sale in ${locationName} | Buy Property in ${locationName}`,
+
+    description: `Explore flats for sale in ${locationName}. Find affordable and luxury apartments, residential properties, and homes with modern amenities in prime locations of ${locationName}.`,
+
+    alternates: {
+      canonical: `https://www.flatsforrentingurgaon.com/${rawArea}`,
+    },
+  };
+}
 export default async function Page({ params }) {
   const resolvedParams = await params;
    const rawArea = resolvedParams?.area;

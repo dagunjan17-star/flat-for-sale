@@ -32,12 +32,12 @@ export default function Footer() {
           <h2 className="text-2xl font-bold text-white">
             Flats for Sale in{" "}
             <span className="text-[#143D60] bg-white px-2 py-1 rounded">
-              Faridabad
+              Gurgaon
             </span>
           </h2>
 
           <p className="text-gray-300 mt-4 max-w-2xl leading-relaxed">
-            Discover affordable and premium flats across prime sectors of Faridabad with verified listings and strong ROI potential.
+            Discover affordable and premium flats across prime sectors of Guragaon with verified listings and strong ROI potential.
           </p>
         </div>
 
