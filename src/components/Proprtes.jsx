@@ -65,9 +65,9 @@ const pathname = usePathname();
   if (!properties || properties.length === 0) {
     return (
       <div className="text-center py-20">
-        <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">
+        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
           No Flats Available for Sale in Gurgaon
-        </h3>
+        </h2>
         <p className="text-gray-500 mt-2 text-sm sm:text-base">
           New Gurgaon property listings will be updated soon.
         </p>
@@ -145,9 +145,9 @@ const pathname = usePathname();
 
                 <div className="p-4 sm:p-5 flex-1 flex flex-col">
                   
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">
+                  <h2 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">
                     {property.title}
-                  </h3>
+                  </h2>
 
                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
   <svg
