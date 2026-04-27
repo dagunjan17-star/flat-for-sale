@@ -79,7 +79,7 @@ const HeroSection = () => {
         {/* LEFT CONTENT */}
         <div className="md:col-span-7 lg:col-span-8 text-white">
 
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
             Luxury Flats for Sale in{" "}
             <span className="">
               Gurgaon

@@ -66,9 +66,9 @@ const SidebarEnquiryForm = () => {
       p-8 border border-gray-200"
     >
 
-      <h3 className="text-2xl font-semibold text-[#143D60] mb-2">
+      <h2 className="text-2xl font-semibold text-[#143D60] mb-2">
         Get Gurgaon Property Consultation
-      </h3>
+      </h2>
 
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Looking for flats in Gurgaon? Share your requirement and our
