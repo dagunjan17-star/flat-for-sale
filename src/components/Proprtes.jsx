@@ -10,13 +10,14 @@ import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import { usePathname } from "next/navigation";
 export default function Properties() {
-  const { properties, loading, error, refetch } = useProperty();
+  const { properties, loading, error, refetch,page2, setPage2,
+    totalItems, itemsPerPage, } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const propertySectionRef = useRef(null);
-  const itemsPerPage = 150;
+  
 const pathname = usePathname();
 
  useEffect(() => {
@@ -75,12 +76,7 @@ const pathname = usePathname();
     );
   }
 
-  /* PAGINATION */
-
-  const totalItems = properties.length;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentProperties = properties.slice(startIndex, endIndex);
+ 
 
   return (
     <section
@@ -111,7 +107,7 @@ const pathname = usePathname();
         {/* LEFT LIST */}
 
         <div className="lg:col-span-2 space-y-6 sm:space-y-8">
-          {currentProperties.map((property) => (
+          {properties.map((property) => (
             <div
               key={property._id}
               className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl md:hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
@@ -253,12 +249,12 @@ const pathname = usePathname();
 
           <div className="mt-12 sm:mt-16">
             <Pagination
-            key={totalItems + "-" + currentPage}
+            key={totalItems + "-" + page2}
               totalItems={totalItems}
               itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-              onPageChange={(page) => {
-                setCurrentPage(page);
+              currentPage={page2}
+              onPageChange={(page) => {~
+                setPage2(page);
 
                 const yOffset = -90;
                 const y =
