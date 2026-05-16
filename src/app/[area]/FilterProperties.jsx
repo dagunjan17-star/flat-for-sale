@@ -97,19 +97,17 @@ export default function FilterProperties({ area }) {
               {/* IMAGE */}
               <div className="relative md:w-2/5 aspect-[4/3] md:aspect-auto">
 
-                {property?.media?.url ? (
+                
                   <Image
-                    src={property.media.url}
+                    src={property?.media?.url
+                      ? property?.media?.url
+                      : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"}
                     unoptimized
                     alt={property.title}
                     fill
                     className="object-cover"
                   />
-                ) : (
-                  <div className="bg-[#e8f1f8] w-full h-full flex items-center justify-center text-[#143D60] text-sm">
-                    No Image
-                  </div>
-                )}
+               
 
                 {/* PROPERTY TYPE BADGE */}
                 <span onClick={() => {
