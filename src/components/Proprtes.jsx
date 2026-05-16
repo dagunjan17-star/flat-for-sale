@@ -118,7 +118,9 @@ const pathname = usePathname();
 
                 <div className="relative md:w-[35%]">
                   <Image
-                    src={property?.media?.url || "/no-image.png"}
+                    src={property?.media?.url 
+                      ? property?.media?.url
+                      : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"}
                     unoptimized
                     alt={property.title}
                     width={600}
