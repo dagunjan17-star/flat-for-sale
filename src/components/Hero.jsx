@@ -87,19 +87,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg max-w-2xl text-gray-200 leading-relaxed">
-            Gurgaon has become one of the most sought-after real estate
-            destinations in Delhi NCR, known for its world-class
-            infrastructure, corporate hubs, and premium residential
-            developments.
-            <br /><br />
-            Whether you are searching for a modern 2 BHK apartment,
-            spacious 3 BHK flat, or luxury penthouse, Gurgaon offers
-            exceptional living spaces with excellent connectivity to
-            Delhi, IGI Airport, and major business districts.
-            <br /><br />
-            Discover verified property listings, prime locations,
-            and trusted developers offering the best flats for sale
-            in Gurgaon for families and investors.
+           Ready to own a flat in Gurgaon — one of India's most prized real estate destinations? Whether you're a first-time homebuyer, a seasoned real estate investor, or someone upgrading to a premium lifestyle, Gurgaon's residential property market offers unparalleled opportunities. From affordable 1BHK flats for sale in emerging sectors along Sohna Road and Dwarka Expressway to ultra-luxury 4BHK and penthouse apartments in prestigious DLF addresses and Golf Course Road developments, Gurgaon has a flat for every budget and aspiration. The city's robust social infrastructure — featuring top-tier schools like GD Goenka and DPS International, world-class hospitals, mega malls, and seamless expressway connectivity — makes it the ultimate destination to buy a flat and build a life. With rapidly appreciating property values, excellent rental yields, and RERA-registered projects ensuring buyer protection, investing in a flat in Gurgaon is a decision that delivers both lifestyle and financial rewards. Browse our extensive, verified listings of flats for sale in Gurgaon and take the first step toward your dream home today!
           </p>
           <Link href="/how-it-works">
   <button className="relative overflow-hidden bg-[#143D60] text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 hover:bg-[#143D60] hover:shadow-xl hover:scale-105 mt-4 cursor-pointer">
