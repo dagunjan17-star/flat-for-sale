@@ -9,7 +9,7 @@ export const locations = [
   'Sector 10A',    'Sector 110',          'Sector 111',
   'Sector 112',    'Sector 113',          'Sector 14',
   'Sector 2',      'Sector 23',           'Sector 25',
-      'Sector 28',           'Sector 3',
+  'Sector 28',     'Sector 3',
   'Sector 30',     'Sector 31',           'Sector 33',
   'Sector 37D',    'Sector 39',           'Sector 41',
   'Sector 42',     'Sector 43',           'Sector 45',
