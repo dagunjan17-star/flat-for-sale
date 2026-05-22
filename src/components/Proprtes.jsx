@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef,useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,25 +12,25 @@ import { usePathname } from "next/navigation";
 import ViewDetailsButton from "./ViewDetailsButton";
 
 export default function Properties() {
-  const { properties, loading, error, refetch,page2, setPage2,
+  const { properties, loading, error, refetch, page2, setPage2,
     totalItems, itemsPerPage, } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const propertySectionRef = useRef(null);
-  
-const pathname = usePathname();
 
- useEffect(() => {
-  refetch();
- }, [pathname]);
+  const pathname = usePathname();
 
   useEffect(() => {
-  if (properties) {
-    setCurrentPage(1);
-  }
-}, [properties]);
+    refetch();
+  }, [pathname]);
+
+  useEffect(() => {
+    if (properties) {
+      setCurrentPage(1);
+    }
+  }, [properties]);
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -78,7 +78,7 @@ const pathname = usePathname();
     );
   }
 
- 
+
 
   return (
     <section
@@ -105,7 +105,7 @@ const pathname = usePathname();
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-        
+
         {/* LEFT LIST */}
 
         <div className="lg:col-span-2 space-y-6 sm:space-y-8">
@@ -115,12 +115,12 @@ const pathname = usePathname();
               className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl md:hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
             >
               <div className="flex flex-col md:flex-row h-full">
-                
+
                 {/* IMAGE */}
 
                 <div className="relative md:w-[35%]">
                   <Image
-                    src={property?.media?.url 
+                    src={property?.media?.url
                       ? property?.media?.url
                       : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"}
                     unoptimized
@@ -144,39 +144,39 @@ const pathname = usePathname();
                 {/* DETAILS */}
 
                 <div className="p-4 sm:p-5 flex-1 flex flex-col">
-                  
+
                   <h2 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">
                     {property.title}
                   </h2>
 
-                 <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4 text-gray-400"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243A8 8 0 1117.657 16.657z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-    />
-  </svg>
+                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243A8 8 0 1117.657 16.657z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
 
-  {property.locality}
-</p>
+                    {property.locality}
+                  </p>
 
                   {/* INFO BAR */}
 
                   <div className="mt-4 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
-                    
+
                     <div>
                       <span className="text-gray-400 uppercase text-xs">
                         Type:
@@ -209,9 +209,9 @@ const pathname = usePathname();
                   {/* BUTTONS */}
 
                   <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mt-5 gap-3">
-                    
+
                     <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                      
+
                       <button
                         onClick={() => {
                           setSelectedProperty(property.title);
@@ -221,24 +221,27 @@ const pathname = usePathname();
                       >
                         Price on Call
                       </button>
+                      <ViewDetailsButton className="border border-[#143D60] text-[#143D60] px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#143D60] hover:text-white transition w-full sm:w-auto text-center font-medium"
 
-                      <Link
+                      slug={property.slug}
+                      href={`https://www.dealacres.com/property/${property.slug}`}/>
+                      {/* <Link
                         href={`/properties/${property.slug}`}
-  onClick={() => {
-    localStorage.setItem("lastLocation", property.city);
+                        onClick={() => {
+                          localStorage.setItem("lastLocation", property.city);
 
-    // 🔥 ONLY set if coming from listing page
-    if (window.location.pathname.includes("flat") || window.location.pathname.includes("listing")) {
-      localStorage.setItem("lastListing", window.location.pathname);
-    } else {
-      // 🔥 clear if coming from home or anywhere else
-      localStorage.removeItem("lastListing");
-    }
-  }}
+                          // 🔥 ONLY set if coming from listing page
+                          if (window.location.pathname.includes("flat") || window.location.pathname.includes("listing")) {
+                            localStorage.setItem("lastListing", window.location.pathname);
+                          } else {
+                            // 🔥 clear if coming from home or anywhere else
+                            localStorage.removeItem("lastListing");
+                          }
+                        }}
                         className="border border-[#143D60] text-[#143D60] px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#143D60] hover:text-white transition w-full sm:w-auto text-center font-medium"
                       >
                         View Details
-                      </Link>
+                      </Link> */}
 
                     </div>
 
@@ -253,11 +256,12 @@ const pathname = usePathname();
 
           <div className="mt-12 sm:mt-16">
             <Pagination
-            key={totalItems + "-" + page2}
+              key={totalItems + "-" + page2}
               totalItems={totalItems}
               itemsPerPage={itemsPerPage}
               currentPage={page2}
-              onPageChange={(page) => {~
+              onPageChange={(page) => {
+                ~
                 setPage2(page);
 
                 const yOffset = -90;

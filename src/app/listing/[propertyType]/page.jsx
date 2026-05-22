@@ -10,6 +10,7 @@ import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import Breadcrumb from "@/components/Breadcrumb";
+import ViewDetailsButton from "@/components/ViewDetailsButton";
 export default function PropertyTypePage() {
 
   const { propertyType } = useParams();
@@ -30,17 +31,17 @@ export default function PropertyTypePage() {
 
   /* ================= FETCH BY TYPE ================= */
 
- const bhk = propertyType?.split("-")[0];
+  const bhk = propertyType?.split("-")[0];
 
-useEffect(() => {
-  if (bhk) {
-    fetchPropertiesByType(`${bhk} BHK`, 1);
-  }
-}, [bhk]);
+  useEffect(() => {
+    if (bhk) {
+      fetchPropertiesByType(`${bhk} BHK`, 1);
+    }
+  }, [bhk]);
 
-useEffect(() => {
-  localStorage.setItem("lastListing", window.location.pathname);
-}, []);
+  useEffect(() => {
+    localStorage.setItem("lastListing", window.location.pathname);
+  }, []);
 
   /* ================= LOADING ================= */
 
@@ -96,9 +97,9 @@ useEffect(() => {
       {/* HEADING */}
 
       <div className="max-w-7xl mx-auto mb-12">
-<div className="mb-6">
-   <Breadcrumb />
-  </div>
+        <div className="mb-6">
+          <Breadcrumb />
+        </div>
         <h1 className="text-3xl md:text-4xl font-bold text-[#143D60]">
           {bhk} BHK Flats for Sale in Gurgaon
         </h1>
@@ -137,7 +138,7 @@ useEffect(() => {
                 <div className="relative md:w-[35%]">
 
                   <Image
-                    src={property?.media?.url 
+                    src={property?.media?.url
                       ? property?.media?.url
                       : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"}
                     unoptimized
@@ -245,13 +246,16 @@ useEffect(() => {
                       >
                         Price On Call
                       </button>
+                       <ViewDetailsButton className="border border-[#143D60] text-[#143D60] px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#143D60] hover:text-white transition text-center"
 
-                      <Link
+                      slug={property.slug}
+                      href={`https://www.dealacres.com/property/${property.slug}`}/>
+                      {/* <Link
                         href={`/properties/${property.slug}`}
                         className="border border-[#143D60] text-[#143D60] px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#143D60] hover:text-white transition text-center"
                       >
                         View Details
-                      </Link>
+                      </Link> */}
 
                     </div>
 

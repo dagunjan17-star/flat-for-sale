@@ -29,26 +29,26 @@ export default function FilterProperties({ area }) {
 
   const finalData = useMemo(() => {
 
-  // 👉 Agar locality ka data hi nahi hai → sirf random (150)
-  if (safeData.length === 0) {
-    return safeProperties.slice(0, 150);
-  }
+    // 👉 Agar locality ka data hi nahi hai → sirf random (150)
+    if (safeData.length === 0) {
+      return safeProperties.slice(0, 150);
+    }
 
-  // 👉 Agar locality ka data hai → mix
-  const filteredIds = new Set(safeData.map((p) => p._id));
+    // 👉 Agar locality ka data hai → mix
+    const filteredIds = new Set(safeData.map((p) => p._id));
 
-  const remaining = safeProperties.filter(
-    (p) => !filteredIds.has(p._id)
-  );
+    const remaining = safeProperties.filter(
+      (p) => !filteredIds.has(p._id)
+    );
 
-  const needed = 150 - safeData.length;
+    const needed = 150 - safeData.length;
 
-  return [
-    ...safeData,
-    ...remaining.slice(0, needed > 0 ? needed : 0)
-  ].slice(0, 150);
+    return [
+      ...safeData,
+      ...remaining.slice(0, needed > 0 ? needed : 0)
+    ].slice(0, 150);
 
-}, [safeData, safeProperties]);
+  }, [safeData, safeProperties]);
 
   if (loading2) {
     return (
@@ -74,15 +74,15 @@ export default function FilterProperties({ area }) {
     );
   }
 
- 
+
 
   return (
     <section className="bg-[#F4F8FB] py-4">
-       {safeData.length === 0 && (
-  <p className="text-center text-gray-500 mb-4">
-    No properties found in {formattedArea}, showing recommended listings
-  </p>
-)}
+      {safeData.length === 0 && (
+        <p className="text-center text-gray-500 mb-4">
+          No properties found in {formattedArea}, showing recommended listings
+        </p>
+      )}
       <div className="max-w-7xl mx-auto">
 
         <div className="grid grid-cols-1 gap-6">
@@ -99,23 +99,23 @@ export default function FilterProperties({ area }) {
               {/* IMAGE */}
               <div className="relative md:w-2/5 aspect-[4/3] md:aspect-auto">
 
-                
-                  <Image
-                    src={property?.media?.url
-                      ? property?.media?.url
-                      : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"}
-                    unoptimized
-                    alt={property.title}
-                    fill
-                    className="object-cover"
-                  />
-               
+
+                <Image
+                  src={property?.media?.url
+                    ? property?.media?.url
+                    : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"}
+                  unoptimized
+                  alt={property.title}
+                  fill
+                  className="object-cover"
+                />
+
 
                 {/* PROPERTY TYPE BADGE */}
                 <span onClick={() => {
-                        setSelectedProperty(property.title);
-                        setOpen(true);
-                      }}
+                  setSelectedProperty(property.title);
+                  setOpen(true);
+                }}
                   className="absolute top-3 left-3
                   bg-[#143D60] text-white text-xs px-3 py-1
                   rounded-tl-xl rounded-br-xl
@@ -134,28 +134,28 @@ export default function FilterProperties({ area }) {
                 </h2>
 
                 <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4 text-gray-400"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243A8 8 0 1117.657 16.657z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-    />
-  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 h-4 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243A8 8 0 1117.657 16.657z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
 
-  {property.locality}
-</p>
+                  {property.locality}
+                </p>
 
                 {/* INFO BAR */}
 
@@ -209,28 +209,34 @@ export default function FilterProperties({ area }) {
                     >
                       Price On Call
                     </button>
+                    <ViewDetailsButton className="border border-[#143D60] text-[#143D60]
+                      px-4 py-2 text-sm
+                      rounded-tl-xl rounded-br-xl
+                      hover:bg-[#143D60] hover:text-white transition"
+                    
+                                          slug={property.slug}
+                                          href={`https://www.dealacres.com/property/${property.slug}`}/>
+                    {/* <Link
 
-                    <Link
-                   
-  href={`/properties/${property.slug}`}
-  onClick={() => {
-    localStorage.setItem("lastLocation", property.city);
+                      href={`/properties/${property.slug}`}
+                      onClick={() => {
+                        localStorage.setItem("lastLocation", property.city);
 
-    // 🔥 ONLY save if user is on listing page
-    if (window.location.pathname.startsWith("/listing")) {
-      localStorage.setItem("lastListing", window.location.pathname);
-    } else {
-      // 🔥 clear wrong data
-      localStorage.removeItem("lastListing");
-    }
-  }}
-         className="border border-[#143D60] text-[#143D60]
+                        // 🔥 ONLY save if user is on listing page
+                        if (window.location.pathname.startsWith("/listing")) {
+                          localStorage.setItem("lastListing", window.location.pathname);
+                        } else {
+                          // 🔥 clear wrong data
+                          localStorage.removeItem("lastListing");
+                        }
+                      }}
+                      className="border border-[#143D60] text-[#143D60]
                       px-4 py-2 text-sm
                       rounded-tl-xl rounded-br-xl
                       hover:bg-[#143D60] hover:text-white transition"
                     >
                       View Details
-                    </Link>
+                    </Link> */}
 
                   </div>
 
