@@ -9,6 +9,8 @@ import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import { usePathname } from "next/navigation";
+import ViewDetailsButton from "./ViewDetailsButton";
+
 export default function Properties() {
   const { properties, loading, error, refetch,page2, setPage2,
     totalItems, itemsPerPage, } = useProperty();

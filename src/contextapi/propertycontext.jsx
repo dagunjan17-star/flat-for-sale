@@ -9,6 +9,8 @@ const DEFAULT_DOMAIN = "www.flatsforsaleingurgaon.com";
 
 export const PropertyProvider = ({ children }) => {
 
+  const [dailyLimit,setDailyLimit]=useState(50);
+
   const [domain] = useState(DEFAULT_DOMAIN);
 
   /* ================= MAIN DOMAIN PROPERTIES ================= */
@@ -157,7 +159,8 @@ export const PropertyProvider = ({ children }) => {
         loading2,
         error2,
         locality,
-        setLocality
+        setLocality,
+        dailyLimit,
 
       }}
     >
