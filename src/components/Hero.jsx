@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import AlertPopup from "./AlertPopup";
 import Link from "next/link";
 const HeroSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    message: "",
+  });
+  const [popup, setPopup] = useState({
+    open: false,
+    type: "success",
     message: "",
   });
 
@@ -32,7 +37,11 @@ const HeroSection = () => {
     e.preventDefault();
 
     if (formData.phone.length !== 10) {
-      toast.error("Phone number must be 10 digits");
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Phone number must be exactly 10 digits",
+      });
       return;
     }
 
@@ -51,13 +60,36 @@ const HeroSection = () => {
       const result = await res.json();
 
       if (result.success) {
-        toast.success("Enquiry submitted successfully!");
-        setFormData({ name: "", phone: "", message: "" });
+        setPopup({
+          open: true,
+          type: "success",
+          message: "Enquiry submitted successfully!",
+        });
+
+        setFormData({
+          name: "",
+          phone: "",
+          message: "",
+        });
       } else {
-        toast.error("Something went wrong. Try again.");
+        setPopup({
+          open: true,
+          type: "error",
+          message: "Something went wrong. Try again.",
+        });
       }
     } catch (err) {
-      toast.error("Server error. Please try later.");
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Server error. Please try later.",
+      });
+
+      setFormData({
+        name: "",
+        phone: "",
+        message: "",
+      });
     } finally {
       setLoading(false);
     }
@@ -86,18 +118,18 @@ const HeroSection = () => {
             </span>
           </h1>
 
-          <p className="text-lg max-w-2xl text-gray-200 leading-relaxed">
-           Ready to own a flat in Gurgaon — one of India's most prized real estate destinations? Whether you're a first-time homebuyer, a seasoned real estate investor, or someone upgrading to a premium lifestyle, Gurgaon's residential property market offers unparalleled opportunities. From affordable 1BHK flats for sale in emerging sectors along Sohna Road and Dwarka Expressway to ultra-luxury 4BHK and penthouse apartments in prestigious DLF addresses and Golf Course Road developments, Gurgaon has a flat for every budget and aspiration. The city's robust social infrastructure — featuring top-tier schools like GD Goenka and DPS International, world-class hospitals, mega malls, and seamless expressway connectivity — makes it the ultimate destination to buy a flat and build a life. With rapidly appreciating property values, excellent rental yields, and RERA-registered projects ensuring buyer protection, investing in a flat in Gurgaon is a decision that delivers both lifestyle and financial rewards. Browse our extensive, verified listings of flats for sale in Gurgaon and take the first step toward your dream home today!
+          <p className="text-lg max-w-4xl text-gray-200 leading-relaxed">
+            Ready to own a flat in Gurgaon — one of India's most prized real estate destinations? Whether you're a first-time homebuyer, a seasoned real estate investor, or someone upgrading to a premium lifestyle, Gurgaon's residential property market offers unparalleled opportunities. From affordable 1BHK flats for sale in emerging sectors along Sohna Road and Dwarka Expressway to ultra-luxury 4BHK and penthouse apartments in prestigious DLF addresses and Golf Course Road developments, Gurgaon has a flat for every budget and aspiration. The city's robust social infrastructure — featuring top-tier schools like GD Goenka and DPS International, world-class hospitals, mega malls, and seamless expressway connectivity — makes it the ultimate destination to buy a flat and build a life. With rapidly appreciating property values, excellent rental yields, and RERA-registered projects ensuring buyer protection, investing in a flat in Gurgaon is a decision that delivers both lifestyle and financial rewards. Browse our extensive, verified listings of flats for sale in Gurgaon and take the first step toward your dream home today!
           </p>
           <Link href="/how-it-works">
-  <button className="relative overflow-hidden bg-[#143D60] text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 hover:bg-[#143D60] hover:shadow-xl hover:scale-105 mt-4 cursor-pointer">
-    
-    <span className="relative z-10">Learn More</span>
+            <button className="relative overflow-hidden bg-[#143D60] text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 hover:bg-[#143D60] hover:shadow-xl hover:scale-105 mt-4 cursor-pointer">
 
-    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] hover:translate-x-[100%] transition duration-700"></span>
-  
-  </button>
-</Link>
+              <span className="relative z-10">Learn More</span>
+
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] hover:translate-x-[100%] transition duration-700"></span>
+
+            </button>
+          </Link>
 
         </div>
 
@@ -175,7 +207,17 @@ const HeroSection = () => {
           </div>
 
         </div>
-
+        <AlertPopup
+          open={popup.open}
+          type={popup.type}
+          message={popup.message}
+          onClose={() =>
+            setPopup({
+              ...popup,
+              open: false,
+            })
+          }
+        />
       </div>
     </section>
   );

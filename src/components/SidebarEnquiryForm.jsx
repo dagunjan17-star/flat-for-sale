@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import AlertPopup from "./AlertPopup";
 
 const SidebarEnquiryForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    message: "",
+  });
+  const [popup, setPopup] = useState({
+    open: false,
+    type: "success",
     message: "",
   });
 
@@ -37,9 +42,11 @@ const SidebarEnquiryForm = () => {
 
     // PHONE CHECK
     if (formData.phone.length !== 10) {
-      toast.error(
-        "Phone number must be exactly 10 digits."
-      );
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Phone number must be exactly 10 digits",
+      });
       return;
     }
 
@@ -47,9 +54,9 @@ const SidebarEnquiryForm = () => {
     const website =
       typeof window !== "undefined"
         ? window.location.hostname.replace(
-            "www.",
-            ""
-          )
+          "www.",
+          ""
+        )
         : "";
 
     try {
@@ -79,9 +86,12 @@ const SidebarEnquiryForm = () => {
       console.log("RESPONSE:", data);
 
       if (data.success) {
-        toast.success(
-          "Request submitted successfully!"
-        );
+
+        setPopup({
+          open: true,
+          type: "success",
+          message: "Enquiry Submitted Successfully!",
+        });
 
         // RESET FORM
         setFormData({
@@ -90,17 +100,23 @@ const SidebarEnquiryForm = () => {
           message: "",
         });
       } else {
-        toast.error(
-          data.error ||
-            "Something went wrong."
-        );
+
+        setPopup({
+          open: true,
+          type: "error",
+          message:
+            data.message || "Something went wrong",
+        });
+
       }
     } catch (err) {
       console.log("ERROR:", err);
 
-      toast.error(
-        "Network error. Please try again."
-      );
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Server error. Please try again later.",
+      });
     } finally {
       setLoading(false);
     }
@@ -176,6 +192,17 @@ const SidebarEnquiryForm = () => {
         </button>
 
       </form>
+      <AlertPopup
+  open={popup.open}
+  type={popup.type}
+  message={popup.message}
+  onClose={() =>
+    setPopup({
+      ...popup,
+      open: false,
+    })
+  }
+/>
 
     </div>
   );
