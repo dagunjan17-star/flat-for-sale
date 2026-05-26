@@ -19,6 +19,9 @@ export const metadata = {
     "ready to move flats Gurgaon",
     "new launch projects Gurgaon",
   ],
+   alternates: {
+    canonical: "https://www.flatsforsaleingurgaon.com/how-it-works",
+  },
 };
 
 export default function Page() {

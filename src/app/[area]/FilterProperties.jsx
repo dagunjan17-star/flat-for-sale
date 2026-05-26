@@ -7,7 +7,7 @@ import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 
 import ViewDetailsButton from "@/components/ViewDetailsButton";
-
+import NearbyLocations from "@/components/NearbyLocations";
 export default function FilterProperties({ area }) {
   const { data, properties, loading2, error2, setLocality } = useProperty();
 
@@ -87,10 +87,11 @@ export default function FilterProperties({ area }) {
 
         <div className="grid grid-cols-1 gap-6">
 
-          {finalData.map((property) => (
-
+          {finalData.map((property , index) => (
+<div
+              key={property._id}>
             <div
-              key={property._id}
+              
               className="bg-white rounded-2xl border border-[#143D60]/10
               shadow-sm hover:shadow-2xl hover:-translate-y-1
               transition duration-300 overflow-hidden flex flex-col md:flex-row"
@@ -245,7 +246,12 @@ export default function FilterProperties({ area }) {
               </div>
 
             </div>
-
+            {(index + 1) % 10 === 0 && (
+<NearbyLocations
+properties={finalData.slice(index - 9, index + 1)}
+/>
+)}
+            </div>
           ))}
 
         </div>

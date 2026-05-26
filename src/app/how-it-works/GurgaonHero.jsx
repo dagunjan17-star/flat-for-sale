@@ -1,10 +1,14 @@
 "use client";
 
+import Breadcrumb from "@/components/Breadcrumb";
+
 export default function GurgaonHero() {
   return (
     <section className="bg-[#F4F8FB] text-[#143D60] py-6 px-6 md:px-12 lg:px-20">
+       <div className="py-5 max-w-7xl mx-auto">
+        <Breadcrumb/>
+       </div>
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
-
         {/* LEFT CONTENT */}
         <div className="space-y-6">
 

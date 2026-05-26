@@ -10,7 +10,7 @@ import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import { usePathname } from "next/navigation";
 import ViewDetailsButton from "./ViewDetailsButton";
-
+import NearbyLocations from "@/components/NearbyLocations";
 export default function Properties() {
   const { properties, loading, error, refetch, page2, setPage2,
     totalItems, itemsPerPage, } = useProperty();
@@ -109,9 +109,11 @@ export default function Properties() {
         {/* LEFT LIST */}
 
         <div className="lg:col-span-2 space-y-6 sm:space-y-8">
-          {properties.map((property) => (
+          {properties.map((property , index) => (
             <div
-              key={property._id}
+              key={property._id}>
+            <div
+             
               className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl md:hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
             >
               <div className="flex flex-col md:flex-row h-full">
@@ -249,6 +251,12 @@ export default function Properties() {
 
                 </div>
               </div>
+              </div>
+                {(index + 1) % 10 === 0 && (
+      <NearbyLocations
+        properties={properties.slice(index - 9, index + 1)}
+      />
+    )}
             </div>
           ))}
 

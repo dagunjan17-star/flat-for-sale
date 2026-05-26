@@ -11,6 +11,7 @@ import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import Breadcrumb from "@/components/Breadcrumb";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
+import NearbyLocations from "@/components/NearbyLocations";
 export default function PropertyTypePage() {
 
   const { propertyType } = useParams();
@@ -124,10 +125,11 @@ export default function PropertyTypePage() {
 
         <div className="lg:col-span-2 space-y-8">
 
-          {properties.map((property) => (
-
+          {properties.map((property, index) => (
+<div
+              key={property._id}>
             <div
-              key={property._id}
+             
               className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
             >
 
@@ -264,7 +266,12 @@ export default function PropertyTypePage() {
                 </div>
 
               </div>
-
+</div>
+           {(index + 1) % 10 === 0 && (
+      <NearbyLocations
+        properties={properties.slice(index - 9, index + 1)}
+      />
+    )}
             </div>
 
           ))}

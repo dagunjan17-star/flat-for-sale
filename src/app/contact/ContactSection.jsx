@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import AlertPopup from "@/components/AlertPopup"
-
+import Breadcrumb from "@/components/Breadcrumb";
 export default function Page() {
 
   const [formData, setFormData] = useState({
@@ -125,10 +125,12 @@ export default function Page() {
       <section className="bg-gradient-to-b from-white to-[#e8f1f8] py-20 px-4 sm:px-6">
 
         <div className="max-w-7xl mx-auto">
-
+<div className="py-5 ">
+        <Breadcrumb/>
+       </div>
           {/* ================= HEADING ================= */}
 
-          <div className="text-center mb-16">
+          <div className=" mb-16">
 
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
 
@@ -139,7 +141,7 @@ export default function Page() {
 
             </h1>
 
-            <p className="mt-6 text-gray-600 max-w-2xl mx-auto">
+            <p className="mt-6 text-gray-600 max-w-2xl ">
               Looking to buy a flat in Faridabad? Our property experts will help
               you find the best options based on your budget and preferences.
             </p>
