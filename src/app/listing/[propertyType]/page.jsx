@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
-import Pagination from "@/components/Pagination";
+import Pagination2 from "@/components/Pagination2";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import Breadcrumb from "@/components/Breadcrumb";
 import ViewDetailsButton from "@/components/ViewDetailsButton";
@@ -22,9 +22,12 @@ export default function PropertyTypePage() {
     error3,
     fetchPropertiesByType,
     page,
-    totalPages
+    totalPages,setPage,setType
   } = useProperty();
-
+  
+  useEffect(() => {
+    setPage(1);
+  } , []);
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
 
@@ -36,13 +39,14 @@ export default function PropertyTypePage() {
 
   useEffect(() => {
     if (bhk) {
-      fetchPropertiesByType(`${bhk} BHK`, 1);
+      // fetchPropertiesByType(`${bhk} BHK`, 1);
+      setType(`${bhk} BHK`); 
     }
   }, [bhk]);
 
-  useEffect(() => {
-    localStorage.setItem("lastListing", window.location.pathname);
-  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("lastListing", window.location.pathname);
+  // }, []);
 
   /* ================= LOADING ================= */
 
@@ -280,12 +284,15 @@ export default function PropertyTypePage() {
 
           <div className="mt-16">
 
-            <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={(newPage) => {
-                fetchPropertiesByType(`${propertyType} BHK`, newPage);
-              }}
+            <Pagination2
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}
+              // currentPage={page}
+              // totalPages={totalPages}
+              // onPageChange={(newPage) => {
+              //   fetchPropertiesByType(`${propertyType} BHK`, newPage);
+              // }}
             />
 
           </div>

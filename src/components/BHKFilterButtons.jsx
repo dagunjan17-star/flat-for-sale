@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useProperty } from "@/contextapi/propertycontext";
 
 export default function BHKFilterButtons() {
+    const {setPage} = useProperty();
   const bhkOptions = [1, 2, 3, 4];
   const params = useParams();
 
@@ -40,7 +42,7 @@ export default function BHKFilterButtons() {
                 ? "bg-[#143D60] text-white"
                 : "text-[#143D60] hover:bg-[#143D60] hover:text-white"
             }
-            `}
+            `}  
           >
             {bhk} BHK Flats in Gurgaon
           </Link>

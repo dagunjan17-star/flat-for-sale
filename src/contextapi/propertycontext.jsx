@@ -20,8 +20,8 @@ export const PropertyProvider = ({ children }) => {
   const [error, setError] = useState(null);
    const [page2,setPage2]=useState(1);
   const limit=150;
-  const [totalItems,setTotalItems]=useState(0)
   const lastFetchedDomain = useRef(null);
+  const [totalPages2,setTotalPages2]=useState(1);
 
   const getPropertiesByDomain = async () => {
 
@@ -39,12 +39,12 @@ export const PropertyProvider = ({ children }) => {
       const res = await axios.get(
         `https://gurgaon-backend.onrender.com/api/listed-properties/getPropertiesByDomain/${domain}?page=${page2}&limit=${limit}`
       );
-
+        console.log("res.data?.data",res?.data)
       setProperties(res.data?.data || []);
-      setTotalItems(res.data?.total)
+      setTotalPages2(res.data.totalPages);
     } catch (err) {
 
-      lastFetchedDomain.current = null;
+      // lastFetchedDomain.current = null;
       setError("Something went wrong");
 
     } finally {
@@ -61,13 +61,14 @@ export const PropertyProvider = ({ children }) => {
 
   /* ================= BHK FILTER + PAGINATION ================= */
 
-  const [loading3, setLoading3] = useState(false);
+  const [loading3, setLoading3] = useState(true);
   const [error3, setError3] = useState(null);
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [type, setType] = useState(null);
 
-  const fetchPropertiesByType = async (type, pageNumber = 1) => {
+  const fetchPropertiesByType = async () => {
 
     try {
 
@@ -75,12 +76,22 @@ export const PropertyProvider = ({ children }) => {
       setError3(null);
 
       const res = await axios.get(
-        `https://gurgaon-backend.onrender.com/api/listed-properties/getPropertiesByType/${type}/${domain}?page=${pageNumber}`
+        `https://gurgaon-backend.onrender.com/api/listed-properties/properties`,
+        {
+params: {
+listingType: "Sale",
+propertyType: type,
+subType: "Flat,Apartments",
+city: "Gurgaon",
+page,
+limit: 150,
+},
+}
       );
 
       setProperties(res.data?.data || []);
       setTotalPages(res.data?.totalPages || 1);
-      setPage(pageNumber);
+      // setPage(pageNumber);
 
     } catch (err) {
 
@@ -93,6 +104,10 @@ export const PropertyProvider = ({ children }) => {
     }
 
   };
+
+  useEffect(() => { 
+    fetchPropertiesByType();
+  }, [page,type]);
 
   /* ================= LOCALITY FILTER ================= */
 
@@ -145,14 +160,13 @@ export const PropertyProvider = ({ children }) => {
         properties,
         loading,
         error,
-        refetch: getPropertiesByDomain,
-        page2,setPage2,totalItems,itemsPerPage:limit,
+        page2,setPage2,totalPages2,
         // BHK filter
         fetchPropertiesByType,
         loading3,
         error3,
-        page,
-        totalPages,
+        page,setPage,
+        totalPages,setType,
 
         // locality filter
         data,

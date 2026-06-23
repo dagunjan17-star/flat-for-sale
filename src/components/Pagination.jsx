@@ -1,14 +1,11 @@
 "use client";
 
 export default function Pagination({
-  totalItems,
-  itemsPerPage,
+  totalPages,
   currentPage,
   onPageChange,
 }) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  if (totalPages <= 1) return null;
+  if (!totalPages || totalPages <= 1) return null;
 
   const maxVisible = 3;
 
@@ -21,82 +18,71 @@ export default function Pagination({
       start = Math.max(1, end - maxVisible + 1);
     }
 
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    return Array.from(
+      { length: end - start + 1 },
+      (_, i) => start + i
+    );
   };
 
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex justify-center items-center gap-1 sm:gap-3 mt-10 sm:mt-14 flex-wrap">
+    <div className="flex justify-center items-center gap-2 mt-10 flex-wrap">
 
-      {/* PREV */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm rounded-md sm:rounded-xl 
-        border border-[#143D60]/30 text-[#143D60] disabled:opacity-40
-        hover:bg-[#143D60]/10 transition"
+        className="px-4 py-2 border rounded disabled:opacity-40"
       >
         Prev
       </button>
 
-      {/* FIRST PAGE */}
       {visiblePages[0] > 1 && (
         <>
           <button
             onClick={() => onPageChange(1)}
-            className="px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm rounded-md sm:rounded-xl 
-            border border-[#143D60]/30 text-[#143D60] hover:bg-[#143D60]/10 transition"
+            className="px-4 py-2 border rounded"
           >
             1
           </button>
 
-          {visiblePages[0] > 2 && (
-            <span className="px-1 sm:px-2 text-gray-400 text-xs sm:text-sm">...</span>
-          )}
+          {visiblePages[0] > 2 && <span>...</span>}
         </>
       )}
 
-      {/* VISIBLE PAGES */}
       {visiblePages.map((page) => (
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm rounded-md sm:rounded-xl font-medium transition
-            ${
-              currentPage === page
-                ? "bg-gradient-to-r from-[#143D60] to-[#0f2c46] text-white shadow-md"
-                : "border border-[#143D60]/30 text-[#143D60] hover:bg-[#143D60]/10"
-            }`}
+          className={`px-4 py-2 rounded ${
+            currentPage === page
+              ? "bg-[#143D60] text-white"
+              : "border"
+          }`}
         >
           {page}
         </button>
       ))}
 
-      {/* LAST PAGE */}
       {visiblePages[visiblePages.length - 1] < totalPages && (
         <>
           {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
-            <span className="px-1 sm:px-2 text-gray-400 text-xs sm:text-sm">...</span>
+            <span>...</span>
           )}
 
           <button
             onClick={() => onPageChange(totalPages)}
-            className="px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm rounded-md sm:rounded-xl 
-            border border-[#143D60]/30 text-[#143D60] hover:bg-[#143D60]/10 transition"
+            className="px-4 py-2 border rounded"
           >
             {totalPages}
           </button>
         </>
       )}
 
-      {/* NEXT */}
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm rounded-md sm:rounded-xl 
-        border border-[#143D60]/30 text-[#143D60] disabled:opacity-40
-        hover:bg-[#143D60]/10 transition"
+        className="px-4 py-2 border rounded disabled:opacity-40"
       >
         Next
       </button>

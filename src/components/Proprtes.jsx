@@ -6,31 +6,18 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "./SidebarEnquiryForm";
-import Pagination from "@/components/Pagination";
+import Pagination2 from "@/components/Pagination2";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import { usePathname } from "next/navigation";
 import ViewDetailsButton from "./ViewDetailsButton";
 import NearbyLocations from "@/components/NearbyLocations";
 export default function Properties() {
-  const { properties, loading, error, refetch, page2, setPage2,
-    totalItems, itemsPerPage, } = useProperty();
+  const { properties, loading, error, page2, setPage2,totalPages2 } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
 
   const propertySectionRef = useRef(null);
 
-  const pathname = usePathname();
-
-  useEffect(() => {
-    refetch();
-  }, [pathname]);
-
-  useEffect(() => {
-    if (properties) {
-      setCurrentPage(1);
-    }
-  }, [properties]);
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -262,25 +249,14 @@ export default function Properties() {
 
           {/* PAGINATION */}
 
-          <div className="mt-12 sm:mt-16">
-            <Pagination
-              key={totalItems + "-" + page2}
-              totalItems={totalItems}
-              itemsPerPage={itemsPerPage}
-              currentPage={page2}
-              onPageChange={(page) => {
-                ~
-                setPage2(page);
-
-                const yOffset = -90;
-                const y =
-                  propertySectionRef.current.getBoundingClientRect().top +
-                  window.pageYOffset +
-                  yOffset;
-
-                window.scrollTo({ top: y, behavior: "smooth" });
-              }}
+          <div className="mt-12 sm:mt-16 border-2 border-red-500">
+            <Pagination2
+              // key={totalItems + "-" + page2}
+              totalPages={totalPages2}
+              page={page2}
+              setPage={setPage2}
             />
+           
           </div>
         </div>
 
