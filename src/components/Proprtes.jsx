@@ -249,7 +249,7 @@ export default function Properties() {
 
           {/* PAGINATION */}
 
-          <div className="mt-12 sm:mt-16 border-2 border-red-500">
+          <div className="mt-12 sm:mt-16 ">
             <Pagination2
               // key={totalItems + "-" + page2}
               totalPages={totalPages2}
