@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { locations } from "../data/locations";
-
+import { useLocality } from "@/contextapi/LocalityContext";
 // ✅ Clean Slug
 const createSlug = (location) => {
   return location
@@ -16,12 +16,39 @@ const createSlug = (location) => {
 };
 
 export default function Footer() {
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState({
+    apartments: false,
+    bhk1: false,
+    bhk2: false,
+    bhk3: false,
+    bhk4: false,
+  });
+  const { localities } = useLocality();
+  const displayLocations =
+    localities && localities.length > 0
+      ? localities
+      : locations;
 
   const initialCount = 14;
-  const visibleLocations = showAll
-    ? locations
-    : locations.slice(0, initialCount);
+  const visibleApartments = showAll.apartments
+    ? displayLocations
+    : displayLocations.slice(0, initialCount);
+
+  const visible1BHK = showAll.bhk1
+    ? displayLocations
+    : displayLocations.slice(0, initialCount);
+
+  const visible2BHK = showAll.bhk2
+    ? displayLocations
+    : displayLocations.slice(0, initialCount);
+
+  const visible3BHK = showAll.bhk3
+    ? displayLocations
+    : displayLocations.slice(0, initialCount);
+
+  const visible4BHK = showAll.bhk4
+    ? displayLocations
+    : displayLocations.slice(0, initialCount);
 
   return (
     <footer className="bg-[#0f2c46] pt-16 pb-8 px-4 border-t border-[#143D60] overflow-visible">
@@ -49,7 +76,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm overflow-visible">
 
-            {visibleLocations.map((loc, index) => (
+            {visibleApartments.map((loc, index) => (
               <div key={index} className="relative group overflow-visible">
 
                 <Link
@@ -82,10 +109,15 @@ export default function Footer() {
             ))}
 
             {/* Read More */}
-            {!showAll && locations.length > initialCount && (
+            {!showAll.apartments && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(true)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      apartments: true,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View More...
@@ -94,10 +126,14 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && locations.length > initialCount && (
+            {showAll.apartments && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(false)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      apartments: false,
+                    }))}
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View Less...
@@ -114,7 +150,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm overflow-visible">
 
-            {visibleLocations.map((loc, index) => (
+            {visible1BHK.map((loc, index) => (
               <div key={index} className="relative group overflow-visible">
 
                 <Link
@@ -123,7 +159,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer" className="block truncate text-gray-300 hover:text-white transition duration-200"
                 >
-                 1 BHK Flat For Sale in {loc}, Gurgaon
+                  1 BHK Flat For Sale in {loc}, Gurgaon
                 </Link>
 
                 <div
@@ -140,17 +176,22 @@ export default function Footer() {
                   pointer-events-none
                 "
                 >
-                 1 BHK Flat For Sale in {loc}, Gurgaon
+                  1 BHK Flat For Sale in {loc}, Gurgaon
                 </div>
 
               </div>
             ))}
 
             {/* Read More */}
-            {!showAll && locations.length > initialCount && (
+            {!showAll.bhk1 && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(true)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk1: true,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View More...
@@ -159,10 +200,15 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && locations.length > initialCount && (
+            {showAll && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(false)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk1: false,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View Less...
@@ -179,7 +225,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm overflow-visible">
 
-            {visibleLocations.map((loc, index) => (
+            {visible2BHK.map((loc, index) => (
               <div key={index} className="relative group overflow-visible">
 
                 <Link
@@ -188,7 +234,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer" className="block truncate text-gray-300 hover:text-white transition duration-200"
                 >
-                 2 BHK Flat For Sale in {loc}, Gurgaon
+                  2 BHK Flat For Sale in {loc}, Gurgaon
                 </Link>
 
                 <div
@@ -205,17 +251,22 @@ export default function Footer() {
                   pointer-events-none
                 "
                 >
-                 2 BHK Flat For Sale in {loc}, Gurgaon
+                  2 BHK Flat For Sale in {loc}, Gurgaon
                 </div>
 
               </div>
             ))}
 
             {/* Read More */}
-            {!showAll && locations.length > initialCount && (
+            {!showAll.bhk2 && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(true)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk2: true,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View More...
@@ -224,10 +275,15 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && locations.length > initialCount && (
+            {showAll.bhk2 && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(false)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk2: false,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View Less...
@@ -244,7 +300,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm overflow-visible">
 
-            {visibleLocations.map((loc, index) => (
+            {visible3BHK.map((loc, index) => (
               <div key={index} className="relative group overflow-visible">
 
                 <Link
@@ -270,17 +326,22 @@ export default function Footer() {
                   pointer-events-none
                 "
                 >
-                 3 BHK Flat For Sale in {loc}, Gurgaon
+                  3 BHK Flat For Sale in {loc}, Gurgaon
                 </div>
 
               </div>
             ))}
 
             {/* Read More */}
-            {!showAll && locations.length > initialCount && (
+            {!showAll.bhk3 && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(true)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk3: true,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View More...
@@ -289,10 +350,15 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && locations.length > initialCount && (
+            {showAll && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(false)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk3: false,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View Less...
@@ -309,7 +375,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-6 gap-y-4 text-sm overflow-visible">
 
-            {visibleLocations.map((loc, index) => (
+            {visible4BHK.map((loc, index) => (
               <div key={index} className="relative group overflow-visible">
 
                 <Link
@@ -318,7 +384,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer" className="block truncate text-gray-300 hover:text-white transition duration-200"
                 >
-                 4 BHK Flat For Sale in {loc}, Gurgaon
+                  4 BHK Flat For Sale in {loc}, Gurgaon
                 </Link>
 
                 <div
@@ -335,17 +401,22 @@ export default function Footer() {
                   pointer-events-none
                 "
                 >
-                 4 BHK Flat For Sale in {loc}, Gurgaon
+                  4 BHK Flat For Sale in {loc}, Gurgaon
                 </div>
 
               </div>
             ))}
 
             {/* Read More */}
-            {!showAll && locations.length > initialCount && (
+            {!showAll.bhk4 && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(true)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk4: true,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View More...
@@ -354,10 +425,15 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && locations.length > initialCount && (
+            {showAll && displayLocations.length > initialCount && (
               <div>
                 <span
-                  onClick={() => setShowAll(false)}
+                  onClick={() =>
+                    setShowAll(prev => ({
+                      ...prev,
+                      bhk4: false,
+                    }))
+                  }
                   className="block cursor-pointer text-white hover:underline"
                 >
                   View Less...
