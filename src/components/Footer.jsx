@@ -200,7 +200,7 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && displayLocations.length > initialCount && (
+            {showAll.bhk1 && displayLocations.length > initialCount && (
               <div>
                 <span
                   onClick={() =>
@@ -350,7 +350,7 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && displayLocations.length > initialCount && (
+            {showAll.bhk3 && displayLocations.length > initialCount && (
               <div>
                 <span
                   onClick={() =>
@@ -425,7 +425,7 @@ export default function Footer() {
             )}
 
             {/* Read Less */}
-            {showAll && displayLocations.length > initialCount && (
+            {showAll.bhk4 && displayLocations.length > initialCount (
               <div>
                 <span
                   onClick={() =>
