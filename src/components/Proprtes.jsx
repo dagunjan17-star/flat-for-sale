@@ -11,13 +11,19 @@ import BHKFilterButtons from "@/components/BHKFilterButtons";
 import { usePathname } from "next/navigation";
 import ViewDetailsButton from "./ViewDetailsButton";
 import NearbyLocations from "@/components/NearbyLocations";
+
+// 👉 STEP 1: Apne custom hook ko import karo
+import { useClickLimit } from "@/hooks/useClickLimit"; 
+
 export default function Properties() {
-  const { properties, loading, error, page2, setPage2,totalPages2 } = useProperty();
+  const { properties, loading, error, page2, setPage2, totalPages2 } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
 
   const propertySectionRef = useRef(null);
 
+  // 👉 STEP 2: Hook se function nikaal lo
+  const { handlePropertyClick } = useClickLimit();
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -29,7 +35,6 @@ export default function Properties() {
   };
 
   /* LOADING */
-
   if (loading) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gradient-to-b from-white to-[#e8f1f8]">
@@ -65,15 +70,12 @@ export default function Properties() {
     );
   }
 
-
-
   return (
     <section
       ref={propertySectionRef}
       className="bg-[#F4F8FB] px-4 sm:px-6 py-12 sm:py-16"
     >
       {/* HEADING */}
-
       <div className="max-w-7xl mx-auto mb-10 sm:mb-12">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
           Flats for Sale in Gurgaon
@@ -92,158 +94,175 @@ export default function Properties() {
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-
         {/* LEFT LIST */}
-
         <div className="lg:col-span-2 space-y-6 sm:space-y-8">
-          {properties.map((property , index) => (
-            <div
-              key={property._id}>
-            <div
-             
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl md:hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
-            >
-              <div className="flex flex-col md:flex-row h-full">
+          {properties.map((property, index) => {
+            
+            // SLUG GENERATION LOGIC
+            const typeSlug = property.propertyType
+              ? property.propertyType.toLowerCase().trim().replace(/[\s\W-]+/g, '-')
+              : "property";
 
-                {/* IMAGE */}
-
-                <div className="relative md:w-[35%]">
-                  <Image
-                    src={property?.media?.url
-                      ? property?.media?.url
-                      : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"}
-                    unoptimized
-                    alt={property.title}
-                    width={600}
-                    height={400}
-                    className="w-full h-56 sm:h-64 md:h-full object-cover"
-                  />
-
-                  <span
-                    onClick={() => {
-                      setSelectedProperty(property.title);
-                      setOpen(true);
-                    }}
-                    className="absolute top-3 left-3 bg-[#143D60] text-white text-xs px-3 py-1 rounded-tl-xl rounded-br-xl shadow font-medium cursor-pointer"
-                  >
-                    {property.propertyType}
-                  </span>
-                </div>
-
-                {/* DETAILS */}
-
-                <div className="p-4 sm:p-5 flex-1 flex flex-col">
-
-                  <h2 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">
-                    {property.title}
-                  </h2>
-
-                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243A8 8 0 1117.657 16.657z"
+            return (
+              <div key={property._id}>
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl md:hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[280px]">
+                  <div className="flex flex-col md:flex-row h-full">
+                    
+                    {/* IMAGE */}
+                    <div className="relative md:w-[35%]">
+                      <Image
+                        src={
+                          property?.media?.url
+                            ? property?.media?.url
+                            : "https://res.cloudinary.com/dbihlu2ve/image/upload/v1778830987/GurgaonProperties/dfzeomq1cjiepu0jnd6i.webp"
+                        }
+                        unoptimized
+                        alt={property.title}
+                        width={600}
+                        height={400}
+                        className="w-full h-56 sm:h-64 md:h-full object-cover"
                       />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
 
-                    {property.locality}
-                  </p>
-
-                  {/* INFO BAR */}
-
-                  <div className="mt-4 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
-
-                    <div>
-                      <span className="text-gray-400 uppercase text-xs">
-                        Type:
-                      </span>{" "}
-                      <span className="font-semibold text-gray-900">
-                        {property.propertyCategory}
-                      </span>
-                    </div>
-
-                    <div className="hidden sm:block h-8 w-px bg-[#143D60]/20"></div>
-
-                    <div>
-                      <span className="text-gray-400 uppercase text-xs">
-                        Status:
-                      </span>{" "}
-                      <span className="font-semibold text-[#143D60]">
-                        {property.status || "Available for Sale"}
-                      </span>
-                    </div>
-
-                  </div>
-
-                  {/* <p className="text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
-                    {property.description ||
-                      "Luxury flat available in Gurgaon with modern amenities and excellent connectivity."}
-                  </p> */}
-
-                  <div className="flex-1"></div>
-
-                  {/* BUTTONS */}
-
-                  <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mt-5 gap-3">
-
-                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-
-                      <button
+                      <span
                         onClick={() => {
                           setSelectedProperty(property.title);
                           setOpen(true);
                         }}
-                        className="bg-[#143D60] text-white px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#0f2c46] transition w-full sm:w-auto text-center font-medium shadow-sm cursor-pointer"
+                        className="absolute top-3 left-3 bg-[#143D60] text-white text-xs px-3 py-1 rounded-tl-xl rounded-br-xl shadow font-medium cursor-pointer"
                       >
-                        Price on Call
-                      </button>
-                      <ViewDetailsButton className="border border-[#143D60] text-[#143D60] px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#143D60] hover:text-white transition w-full sm:w-auto text-center font-medium"
-
-                      slug={property.slug}
-                      href={`https://www.dealacres.com/property/${property.slug}`}/>
-                     
-
+                        {property.propertyType}
+                      </span>
                     </div>
 
-                  </div>
+                    {/* DETAILS */}
+                    <div className="p-4 sm:p-5 flex-1 flex flex-col">
+                      <h2 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug">
+                        {property.title}
+                      </h2>
 
+                      <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-4 h-4 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243A8 8 0 1117.657 16.657z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        {property.locality}
+                      </p>
+
+                      {/* INFO BAR */}
+                      <div className="mt-4 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
+                        <div>
+                          <span className="text-gray-400 uppercase text-xs">
+                            Type:
+                          </span>{" "}
+                          <span className="font-semibold text-gray-900">
+                            {property.propertyCategory}
+                          </span>
+                        </div>
+
+                        <div className="hidden sm:block h-8 w-px bg-[#143D60]/20"></div>
+
+                        <div>
+                          <span className="text-gray-400 uppercase text-xs">
+                            Status:
+                          </span>{" "}
+                          <span className="font-semibold text-[#143D60]">
+                            {property.status || "Available for Sale"}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex-1"></div>
+
+                      {/* BUTTONS */}
+                      <div className="flex flex-col sm:flex-row gap-3 mt-5 w-full">
+                        <button
+                          onClick={() => {
+                            setSelectedProperty(property.title);
+                            setOpen(true);
+                          }}
+                          className="bg-[#143D60] text-white px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#0f2c46] transition w-full sm:w-auto text-center font-medium shadow-sm cursor-pointer"
+                        >
+                          Price on Call
+                        </button>
+                        <ViewDetailsButton
+                          className="border border-[#143D60] text-[#143D60] px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-[#143D60] hover:text-white transition w-full sm:w-auto text-center font-medium"
+                          slug={property.slug}
+                          href={`https://www.dealacres.com/property/${property.slug}`}
+                        />
+                      </div>
+
+                      {/* EXPLORE MORE LINKS WITH TOP BORDER AND DIVIDER */}
+                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 text-sm text-gray-500 font-medium">
+                        
+                        {/* 👉 STEP 3: Yahan onClick lagaya hai sirf Explore more ke liye */}
+                        <Link
+                          href={`https://www.dealacres.com/properties/${typeSlug}-for-sale-in-gurgaon`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={handlePropertyClick} // <--- LIMIT YAHAN LAGI HAI
+                          className="group text-left flex items-center gap-1"
+                        >
+                          <h4 className="font-semibold text-gray-700 group-hover:text-[#143D60] transition-colors underline-offset-2 hover:underline">
+                            Explore more
+                          </h4>
+                          <span className="text-[#143D60] group-hover:translate-x-1 transition-transform duration-300">→</span>
+                        </Link>
+
+                        {/* Vertical Divider */}
+                        <div className="h-5 w-px bg-gray-300 mx-3"></div>
+
+                        {/* Right Link (Is par koi limit nahi hai) */}
+                        <Link
+                          href="https://www.dealacres.com/sell-property"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group text-right flex items-center gap-1"
+                        >
+                          <h4 className="font-semibold text-gray-700 group-hover:text-[#143D60] transition-colors underline-offset-2 hover:underline">
+                            Free Sell Property
+                          </h4>
+                          <span className="text-[#143D60] group-hover:translate-x-1 transition-transform duration-300">→</span>
+                        </Link>
+                        
+                      </div>
+
+                    </div>
+                  </div>
                 </div>
+                
+                {(index + 1) % 10 === 0 && (
+                  <NearbyLocations blockIndex={Math.floor(index / 10)} />
+                )}
               </div>
-              </div>
-                 {(index + 1) % 10 === 0 && (
-  <NearbyLocations blockIndex={Math.floor(index / 10)} />
-)}
-            </div>
-          ))}
+            );
+          })}
 
           {/* PAGINATION */}
-
           <div className="mt-12 sm:mt-16 ">
             <Pagination2
-              // key={totalItems + "-" + page2}
               totalPages={totalPages2}
               page={page2}
               setPage={setPage2}
             />
-           
           </div>
         </div>
 
         {/* SIDEBAR (hidden on mobile) */}
-
         <div className="lg:col-span-1 sticky top-28 hidden lg:block">
           <SidebarEnquiryForm />
         </div>
