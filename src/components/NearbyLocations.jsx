@@ -151,7 +151,7 @@ if (
               key={item._id}
                   onClick={() =>
                     window.open(
-                      `https://www.dealacres.com/properties/flat-for-sale-in-${item.slug}`,
+                      `https://www.dealacres.com/properties/flat-for-sale-in-gurgaon`,
                       "_blank"
                     )
                   }
